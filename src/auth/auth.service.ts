@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RegisterDto } from './dto/register.dto';
@@ -17,6 +17,11 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
+
+    if (existingUser) {
+    throw new BadRequestException('El username ya existe');
+  }
+    
     const hashedPassword = await bcrypt.hash(dto.password, 10);
 
     const user = this.userRepository.create({
