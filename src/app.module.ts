@@ -27,7 +27,7 @@ import { ConfigModule } from '@nestjs/config';
         rejectUnauthorized: false,
       },
       autoLoadEntities: true,
-      synchronize: false, // dev only
+      synchronize: true, // dev only
     }),
     AuthModule,
     UsersModule,
