@@ -18,6 +18,10 @@ export class AuthService {
 
   async register(dto: RegisterDto) {
 
+    const existingUser = await this.userRepository.findOne({
+    where: { username: dto.username },
+  });
+
     if (existingUser) {
     throw new BadRequestException('El username ya existe');
   }
